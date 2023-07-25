@@ -28,7 +28,6 @@ export const validateToken = async (req, res, next) => {
       );
     }
     const verification = jwt.verify(token, process.env.TOKEN_SECRET || '');
-    console.log(verification, 'verification');
     next();
   } catch (error) {
     return res.json(

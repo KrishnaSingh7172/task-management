@@ -63,7 +63,8 @@ export const getById = async (taskId) => {
 
 export const updateById = async (id, data) => {
   try {
-    const updatingTask = await Task.findByIdAndUpdate({ id: id, update: data });
+    console.log(id, data);
+    const updatingTask = await Task.findByIdAndUpdate(id, data);
     if (updatingTask) {
       return {
         status: Constants.statusCodes.OK,
@@ -84,17 +85,17 @@ export const updateById = async (id, data) => {
 export const deleteTask = async (id) => {
   try {
     const deletingTask = await Task.findByIdAndDelete(id);
-    if (deleteTask) {
+    if (deletingTask) {
       return {
         status: Constants.statusCodes.OK,
         message: Constants.messages.SUCCESS,
-        data: updatingTask,
+        data: deletingTask,
       };
     }
     return {
       status: Constants.statusCodes.INTERNAL_SERVER_ERROR,
       message: Constants.messages.SOMETHING_WENT_WRONG,
-      data: req.body,
+      data: {},
     };
   } catch (error) {
     throw error;

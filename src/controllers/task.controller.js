@@ -8,6 +8,7 @@ import {
 import {
   createTaskSchema,
   getTaskByIdSchema,
+  upateTaskSchema,
 } from '../common/schema.validation.js';
 import { Constants } from '../common/constant.js';
 import { APIResponse } from '../common/api_response.common.js';
@@ -92,11 +93,7 @@ export const deleteTaskByUserId = async (req, res) => {
     const { error } = getTaskByIdSchema({ id: req.params.id });
     if (error) {
       return res.json(
-        new APIResponse(
-          Constants.statusCodes.BAD_REQUEST,
-          error.message,
-          req.body,
-        ),
+        new APIResponse(Constants.statusCodes.BAD_REQUEST, error.message, {}),
       );
     }
     const { status, message, data } = await deleteTask(req.params.id);
@@ -114,7 +111,7 @@ export const deleteTaskByUserId = async (req, res) => {
 
 export const updateTask = async (req, res) => {
   try {
-    const { error } = updateTask(req.body);
+    const { error } = upateTaskSchema(req.body);
     if (error) {
       return res.json(
         new APIResponse(
